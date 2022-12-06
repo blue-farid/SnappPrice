@@ -2,7 +2,9 @@ package com.snapp.price.snappprice.service;
 
 import com.snapp.price.snappprice.model.BoxPriceResponseDto;
 import com.snapp.price.snappprice.model.Location;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PricingServiceImpl implements PricingService {
     @Override
     public BoxPriceResponseDto getBoxPrice(Location origin, Location destination) {
