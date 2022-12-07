@@ -19,11 +19,11 @@ public class PriceController {
     private final PricingService priceService;
     private final MessageSource source;
 
-    @PostMapping("/box")
-    public ResponseEntity<BaseResponseDto<BoxPriceResponseDto>> getBoxPrice(@RequestParam Long sourceX
-            , @RequestParam Long sourceY
-            , @RequestParam Long[] destinationX
-            , @RequestParam Long[] destinationY
+    @GetMapping("/box")
+    public ResponseEntity<BaseResponseDto<BoxPriceResponseDto>> getBoxPrice(@RequestParam Double sourceX
+            , @RequestParam Double sourceY
+            , @RequestParam Double[] destinationX
+            , @RequestParam Double[] destinationY
             , Locale locale) {
         Location origin = new Location(sourceX, sourceY);
         Location[] destinations = new Location[destinationX.length];

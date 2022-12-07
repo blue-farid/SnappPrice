@@ -3,7 +3,10 @@ package com.snapp.price.snappprice.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @AllArgsConstructor
-public class BoxPriceResponseDto {
+@Data
+public class BoxPriceResponseDto implements Serializable {
     private String priceAmount;
 }
