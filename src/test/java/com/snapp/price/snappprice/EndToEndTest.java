@@ -1,7 +1,5 @@
 package com.snapp.price.snappprice;
 
-import com.snapp.price.snappprice.model.BoxPriceResponseDto;
-import com.snapp.price.snappprice.model.Location;
 import com.snapp.price.snappprice.service.PricingService;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
