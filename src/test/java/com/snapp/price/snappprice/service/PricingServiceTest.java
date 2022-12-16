@@ -21,7 +21,7 @@ class PricingServiceTest {
         Location origin = new Location(1.0, 1.0);
         Location[] destinations = new Location[]{new Location(2.0, 2.0)};
         // when
-        BoxPriceResponseDto price = pricingService.getBoxPrice(origin, destinations);
+        BoxPriceResponseDto price = pricingService.getBoxPrice(origin, destinations, "BIKE");
         // then
         Assertions.assertEquals("14142.135623730952", price.getPriceAmount());
     }

@@ -53,6 +53,7 @@ public class EndToEndTest {
                 .queryParam("sourceY", sourceY)
                 .queryParam("destinationX", (Object[]) destinationX)
                 .queryParam("destinationY", (Object[]) destinationY)
+                .queryParam("orderTypeValue", "BIKE")
                 .build();
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders

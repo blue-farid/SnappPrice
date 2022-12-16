@@ -2,6 +2,7 @@ package com.snapp.price.snappprice.controller;
 
 import com.snapp.price.snappprice.model.BoxPriceResponseDto;
 import com.snapp.price.snappprice.model.Location;
+import com.snapp.price.snappprice.repository.PricingRepository;
 import com.snapp.price.snappprice.service.PricingService;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
@@ -32,6 +33,9 @@ class PriceControllerTest {
     @MockBean
     PricingService pricingService;
 
+    @MockBean
+    PricingRepository pricingRepository;
+
     @Autowired
     MockMvc mockMvc;
 
@@ -44,7 +48,7 @@ class PriceControllerTest {
     @SneakyThrows
     void getBoxPrice_ok() {
         // given
-        given(pricingService.getBoxPrice(any(Location.class), any(Location[].class))).
+        given(pricingService.getBoxPrice(any(Location.class), any(Location[].class), any(String.class))).
                 willReturn(BoxPriceResponseDto.builder().priceAmount("40000").build());
 
 
@@ -57,6 +61,7 @@ class PriceControllerTest {
                 .queryParam("sourceY", "1.0")
                 .queryParam("destinationX", List.of("2.0"))
                 .queryParam("destinationY", List.of("2.0"))
+                .queryParam("orderTypeValue", "BIKE")
                 .build();
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders

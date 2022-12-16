@@ -24,6 +24,7 @@ public class PriceController {
             , @RequestParam Double sourceY
             , @RequestParam Double[] destinationX
             , @RequestParam Double[] destinationY
+            , @RequestParam String orderTypeValue
             , Locale locale) {
         Location origin = new Location(sourceX, sourceY);
         Location[] destinations = new Location[destinationX.length];
@@ -33,7 +34,7 @@ public class PriceController {
             destinations[i] = destination;
         }
 
-        BoxPriceResponseDto dto = priceService.getBoxPrice(origin, destinations);
+        BoxPriceResponseDto dto = priceService.getBoxPrice(origin, destinations, orderTypeValue);
         return ResponseEntity.ok().body(BaseResponseDto.<BoxPriceResponseDto>builder().result(dto).message(
                 source.getMessage("get.success", null, locale)
         ).build());
