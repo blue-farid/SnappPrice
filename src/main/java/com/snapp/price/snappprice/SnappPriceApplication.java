@@ -27,7 +27,7 @@ public class SnappPriceApplication implements CommandLineRunner {
         OrderType type2 = new OrderType();
         type2.setValue("CAR");
         type2.setRatio(2.0);
-        repository.save(type);
-        repository.save(type2);
+        repository.insert(type);
+        repository.insert(type2);
     }
 }
