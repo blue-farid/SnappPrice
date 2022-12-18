@@ -17,9 +17,10 @@ public class PricingServiceImpl implements PricingService {
 
     @Override
     public BoxPriceResponseDto getBoxPrice(Location origin, Location[] destinations, String orderType) {
-        double price = calculateDistance(origin, destinations[0]) * priceRatio;
+        double orderTypeRatio = pricingRepository.findOrderTypeByValue(orderType).getRatio();
+        double price = calculateDistance(origin, destinations[0]) * priceRatio * orderTypeRatio;
         for (int i = 0; i < destinations.length - 1; i++) {
-            price += calculateDistance(destinations[i], destinations[i + 1]) * priceRatio * pricingRepository.findOrderTypeByValue(orderType).getRatio();
+            price += calculateDistance(destinations[i], destinations[i + 1]) * priceRatio * orderTypeRatio;
         }
         return new BoxPriceResponseDto(String.valueOf(price));
     }

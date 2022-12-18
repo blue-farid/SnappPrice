@@ -1,11 +1,15 @@
 package com.snapp.price.snappprice;
 
+import com.snapp.price.snappprice.model.BoxPriceResponseDto;
+import com.snapp.price.snappprice.model.entity.OrderType;
+import com.snapp.price.snappprice.repository.PricingRepository;
 import com.snapp.price.snappprice.service.PricingService;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.MessageSource;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
@@ -17,6 +21,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Locale;
 
+import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -29,6 +34,9 @@ public class EndToEndTest {
 
     @Autowired
     PricingService pricingService;
+
+    @MockBean
+    PricingRepository pricingRepository;
 
     @Autowired
     MessageSource messageSource;
@@ -43,6 +51,9 @@ public class EndToEndTest {
         Double sourceY = 1.0;
         Double[] destinationX = new Double[]{2.0};
         Double[] destinationY = new Double[]{2.0};
+
+        given(pricingRepository.findOrderTypeByValue("BIKE")).willReturn(OrderType.builder().id("id")
+                .value("BIKE").ratio(1.5).build());
 
         UriComponents uriComponents = UriComponentsBuilder.newInstance()
                 .scheme("http")
@@ -63,7 +74,7 @@ public class EndToEndTest {
         // when then
         mockMvc.perform(requestBuilder)
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.result.priceAmount").value("14142.135623730952"))
+                .andExpect(jsonPath("$.result.priceAmount").value("21213.203435596428"))
                 .andExpect(jsonPath("$.message").value(messageSource.getMessage("get.success", null, locale)));
     }
 }
